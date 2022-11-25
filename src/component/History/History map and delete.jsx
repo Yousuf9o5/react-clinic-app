@@ -3,7 +3,6 @@ import React from "react";
 import { URL } from "../Services/WebServices";
 
 const HistoryRow = (props) => {
-  console.log("row his :", props.history);
   const deleteHistory = (_id) => {
     axios
       .delete(`${URL}history/${_id}`)
@@ -30,7 +29,6 @@ const HistoryRow = (props) => {
           <td className="py-6">
             {item.prescription &&
               item.prescription.map((item) => {
-                console.log(item);
                 return item.name ? item.name : item;
               })}
           </td>

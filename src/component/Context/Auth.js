@@ -7,37 +7,31 @@ const DefaultValue = {
   user: null,
   login: () => Promise.resolve(),
   logout: () => {},
+  jwtToken: null,
 };
 export const UserAuth = createContext(DefaultValue);
 
 export const UserAuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [Authorized, setAuthorized] = useState(false);
+  const [jwtToken, setJwtToken] = useState("");
 
   useEffect(() => {
     try {
       const data = JSON.parse(localStorage.getItem("userData"));
       if (data) {
-        setAuthorized(true);
-        setUserData(data);
+        if (data.token) {
+          setAuthorized(true);
+          setJwtToken(data.token);
+          setUserData(data);
+          axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+        }
       }
     } catch (err) {
       console.log("not working");
       console.error(err);
     }
   }, []);
-
-  const setSessionData = (data) => {
-    if (data) {
-      let token = data.token;
-      localStorage.setItem("userData", JSON.stringify(data));
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    } else {
-      console.log("removed");
-      localStorage.removeItem("user_data");
-      delete axios.defaults.headers.common.Authorization;
-    }
-  };
 
   const Login = (username, password) => {
     axios
@@ -47,7 +41,7 @@ export const UserAuthProvider = ({ children }) => {
       })
       .then((res) => {
         localStorage.setItem("userData", JSON.stringify(res.data.data));
-        // setUserData(localStorage.getItem("userData"));
+        setJwtToken(res.data.data.token);
         setAuthorized(true);
       })
       .catch((err) => console.log(err));
@@ -66,6 +60,7 @@ export const UserAuthProvider = ({ children }) => {
         login: Login,
         logout: Logout,
         user: userData,
+        jwtToken: jwtToken,
       }}
     >
       {children}
