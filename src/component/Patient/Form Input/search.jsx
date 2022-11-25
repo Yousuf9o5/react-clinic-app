@@ -5,7 +5,7 @@ function SearchBar(props) {
   const searchForItem = (e) => {
     let val = e.target.value
       ? props.filteredList.filter((item) => {
-          return item.fullName
+          return item.full_name
             .toLowerCase()
             .includes(e.target.value.toLowerCase());
         })

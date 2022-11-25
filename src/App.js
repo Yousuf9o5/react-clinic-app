@@ -3,7 +3,7 @@ import "./App.css";
 import { THEMES } from "./component/Context/theme";
 import PatientForm from "./component/Patient/Main Form";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import HistoryForm from "./component/History/Main Form";
+import HistoryForm from "./component/History/Main Layout";
 import Layout from "./component/Layouts/Form Layout";
 import Login from "./component/Pages/Login/Login";
 import themeContext from "./component/Context/theme";
@@ -17,6 +17,10 @@ const rout = createBrowserRouter([
       {
         path: "Patients",
         element: <PatientForm />,
+      },
+      {
+        path: "Patients/:id/History",
+        element: <HistoryForm />,
       },
       {
         path: "History",

@@ -16,7 +16,7 @@ const SideBar = () => {
           </NavLink>
         </li>
         <li className="my-3">
-          <NavLink className={check} to={"History"}>
+          <NavLink className={check} to={`History`}>
             History
           </NavLink>
         </li>

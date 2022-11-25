@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { BASEURL, loginURL } from "../Constant/WebServices";
+import { BASE_URL, loginURL } from "../Services/WebServices";
 
 const DefaultValue = {
   isAuth: false,
@@ -16,7 +16,7 @@ export const UserAuthProvider = ({ children }) => {
 
   useEffect(() => {
     try {
-      const data = localStorage.getItem("userData");
+      const data = JSON.parse(localStorage.getItem("userData"));
       if (data) {
         setAuthorized(true);
         setUserData(data);
@@ -41,12 +41,13 @@ export const UserAuthProvider = ({ children }) => {
 
   const Login = (username, password) => {
     axios
-      .post(`${BASEURL}${loginURL}`, {
+      .post(`${BASE_URL}${loginURL}`, {
         username: username,
         password: password,
       })
       .then((res) => {
-        localStorage.setItem("userData", res.data.Data.username);
+        localStorage.setItem("userData", JSON.stringify(res.data.data));
+        // setUserData(localStorage.getItem("userData"));
         setAuthorized(true);
       })
       .catch((err) => console.log(err));

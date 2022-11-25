@@ -14,6 +14,7 @@ const PatientsTable = (props) => {
           <td>Birth Date</td>
           <td>Gender</td>
           <td>Phone number</td>
+          <td>Code</td>
           <td></td>
         </tr>
       </thead>

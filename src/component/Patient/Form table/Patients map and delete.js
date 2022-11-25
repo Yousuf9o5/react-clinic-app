@@ -1,14 +1,23 @@
+import axios from "axios";
 import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import themeContext from "../../Context/theme";
 
 const PatientsMapping = (props) => {
   const context = useContext(themeContext);
+
   //delete patients
   const delItem = (id) => {
-    let temp = props.list.findIndex((item) => item.id === id);
-    let temp1 = props.list.splice(temp, 1);
-    console.log(temp1);
-    props.setList([...props.list]);
+    console.log(id);
+    axios
+      .delete(`http://127.0.0.1:5000/api/v1/patients/${id}`)
+      .then((res) => {
+        let temp = props.list.findIndex((item) => item._id === id);
+        let temp1 = props.list.splice(temp, 1);
+        console.log(temp1);
+        props.setList([...props.list]);
+      })
+      .catch((err) => console.log(err));
   };
 
   return props.list.map((item, index) => {
@@ -22,15 +31,18 @@ const PatientsMapping = (props) => {
         }
       >
         <td className="">{index + 1}</td>
-        <td className="">{item.fullName}</td>
-        <td className="">{item.birthDate}</td>
+        <td className=" hover:text-blue-400">
+          <NavLink to={`${item._id}/History`}>{item.full_name}</NavLink>
+        </td>
+        <td className="">{item.birth_date}</td>
         <td className="">{item.gender}</td>
-        <td className="">{item.phoneNumber}</td>
+        <td className="">{item.phone}</td>
+        <td className="">{item.code}</td>
         <td className="text-center">
           <button
             className=" bg-red-600 text-white rounded px-3"
             onClick={() => {
-              delItem(item.id);
+              delItem(item._id);
             }}
           >
             Delete

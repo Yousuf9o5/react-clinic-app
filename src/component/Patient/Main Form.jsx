@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInputs from "./Form Input/info input";
 import PatientsTable from "./Form table/Patients Table";
-import { p } from "./Patients Information";
+// import { p } from "./Patients Information";
 import SelectGender from "./Form Input/Select";
 import SearchBar from "./Form Input/search";
 import { toaster } from "evergreen-ui";
 import AddElement from "./Form Input/Add element";
+import axios from "axios";
+import { BASE_URL } from "../Services/WebServices";
 
 function PatientForm() {
-  const [patients, setPatients] = useState(p);
-  const [filteredPatients, setFilteredPatients] = useState(p);
+  const [patients, setPatients] = useState([]);
+  const [filteredPatients, setFilteredPatients] = useState([]);
   const [fname, setfname] = useState("");
   const [birth, setBirth] = useState(Date());
   const [gender, setGender] = useState("male");
   const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/api/v1/patients")
+      .then((res) => {
+        localStorage.setItem("Patients", res.data.data);
+        setPatients(res.data.data);
+        setFilteredPatients(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   //add new patients
   const addNew = () => {
@@ -24,17 +37,30 @@ function PatientForm() {
 
     if (!phone) return toaster.warning("Enter patients phone number");
 
-    let temp = patients;
-    temp.push({
-      id: temp.length + 1,
-      fullName: fname,
-      birthDate: birth,
-      gender: gender,
-      phoneNumber: phone,
-    });
+    axios
+      .post(`${BASE_URL}/api/v1/patients`, {
+        full_name: fname,
+        birth_date: birth,
+        gender: gender,
+        phone: phone,
+        code: code,
+      })
+      .then((res) => {
+        let temp = !patients ? [] : patients;
+        temp.push({
+          id: temp.length + 1,
+          full_name: fname,
+          birth_date: birth,
+          gender: gender,
+          phone: phone,
+          code: code,
+        });
 
-    setPatients([...temp]);
-    setFilteredPatients([...temp]);
+        setPatients([...temp]);
+        setFilteredPatients([...temp]);
+      })
+      .catch((err) => console.log(err));
+
     return toaster.success("Patients add successfully");
   };
 
@@ -49,6 +75,13 @@ function PatientForm() {
           PlaceHolder="Phone number"
           type={"number"}
         />
+        <FormInputs
+          val={code}
+          setVal={setCode}
+          type={"text"}
+          PlaceHolder="Code"
+        />
+
         <SelectGender setVal={setGender} />
         <AddElement method={addNew} />
       </div>

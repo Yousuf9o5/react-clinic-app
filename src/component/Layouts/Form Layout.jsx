@@ -23,7 +23,7 @@ const Layout = () => {
         <div className={`text-3xl ${context.theme.font} my-10 mx-9`}>
           <h1>CLINIC APP</h1>
         </div>
-        <SideBar />
+        <SideBar id={""} />
         <LogoutButton />
       </div>
       <div className=" w-full h-full">
