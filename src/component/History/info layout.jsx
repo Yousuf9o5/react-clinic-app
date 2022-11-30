@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import AddHistory from "./add new element";
 import Table from "./Table";
 
 const InfoLayout = (props) => {

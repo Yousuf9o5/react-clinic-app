@@ -6,9 +6,9 @@ const HistoryForm = () => {
 
   if (!id) return <p>no patients selected</p>;
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="w-full">
-        <h1 className={`text-4xl font-bold`}>Patients Information</h1>
+        <h1 className={`text-4xl font-bold `}>Patients Information</h1>
         <InfoLayout id={id} />
       </div>
     </div>
