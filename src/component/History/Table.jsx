@@ -9,7 +9,7 @@ const Table = (props) => {
   let data;
   useEffect(() => {
     axios
-      .get(`${BASE_URL}api/v1/patients/${props.id}/history`)
+      .get(`${BASE_URL}/api/v1/patients/${props.id}/history`)
       .then((res) => {
         localStorage.setItem("history", JSON.stringify(res.data.data));
         data = JSON.parse(localStorage.getItem("history"));
