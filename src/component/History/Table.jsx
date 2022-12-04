@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../Services/WebServices";
 import AddHistory from "./add new element";
 import HistoryRow from "./History map and delete";
 
@@ -8,7 +9,7 @@ const Table = (props) => {
   let data;
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:5000/api/v1/patients/${props.id}/history`)
+      .get(`${BASE_URL}api/v1/patients/${props.id}/history`)
       .then((res) => {
         localStorage.setItem("history", JSON.stringify(res.data.data));
         data = JSON.parse(localStorage.getItem("history"));

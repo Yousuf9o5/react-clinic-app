@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../Services/WebServices";
 import Table from "./Table";
 
 const InfoLayout = (props) => {
@@ -7,7 +8,7 @@ const InfoLayout = (props) => {
   var data;
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:5000/api/v1/patients/${props.id}`)
+      .get(`${BASE_URL}/api/v1/patients/${props.id}`)
       .then((res) => {
         if (!data) {
           localStorage.setItem("byId", JSON.stringify(res.data.data));

@@ -19,7 +19,7 @@ function PatientForm() {
   const [code, setCode] = useState("");
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/api/v1/patients")
+      .get(`${BASE_URL}/api/v1/patients`)
       .then((res) => {
         localStorage.setItem("Patients", res.data.data);
         setPatients(res.data.data);
