@@ -22,7 +22,7 @@ const Login = () => {
   if (isAuth) return <Navigate to="/" />;
   return (
     <section className=" bg-cyan-50 h-screen flex justify-center items-center ">
-      <form className=" bg-sky-500 p-12 w-1/4 text-center rounded-lg shadow-2xl">
+      <form className=" bg-sky-500 p-12 w-[200] text-center rounded-lg shadow-2xl relative">
         <div className="px-10 py-7">
           <h1 className="text-6xl font-bold text-white drop-shadow-lg">
             Clinic

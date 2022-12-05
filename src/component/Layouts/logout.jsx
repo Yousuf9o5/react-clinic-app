@@ -7,7 +7,7 @@ const LogoutButton = () => {
   return (
     <div className={`bottom-0 text-center w-full absolute p-5`}>
       <button
-        className={`px-[60px] py-[5px] bg-gray-300 text-black text-xl rounded shadow-md`}
+        className={`py-[5px] bg-gray-300 text-black text-xl rounded shadow-md w-[90%]`}
         onClick={logout}
       >
         LOGOUT
