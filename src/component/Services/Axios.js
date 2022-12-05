@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL as HOST_NAME } from "./WebServices";
+
 export class AxiosBase {
   headers = {};
 

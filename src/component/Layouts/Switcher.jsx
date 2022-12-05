@@ -1,13 +1,18 @@
 import { Switch } from "evergreen-ui";
-import React from "react";
+import React, { useContext } from "react";
+import themeContext from "../Context/theme";
 
-const Switcher = (props) => {
+const Switcher = () => {
+  const Context = useContext(themeContext);
+  const check = Context.Checked;
+  const setCheck = Context.setChecked;
+
   return (
     <div className=" mx-6">
       <Switch
         height={24}
-        checked={props.check}
-        onChange={(e) => props.setCheck(e.target.checked)}
+        checked={check}
+        onChange={(e) => setCheck(e.target.checked)}
       />
     </div>
   );

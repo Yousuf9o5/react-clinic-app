@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import themeContext from "../../Context/theme";
+import { BASE_URL } from "../../Services/WebServices";
 
 const PatientsMapping = (props) => {
   const context = useContext(themeContext);
@@ -10,7 +11,7 @@ const PatientsMapping = (props) => {
   const delItem = (id) => {
     console.log(id);
     axios
-      .delete(`http://127.0.0.1:5000/api/v1/patients/${id}`)
+      .delete(`${BASE_URL}/api/v1/patients/${id}`)
       .then((res) => {
         let temp = props.list.findIndex((item) => item._id === id);
         let temp1 = props.list.splice(temp, 1);

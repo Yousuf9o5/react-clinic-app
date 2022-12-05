@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const THEMES = {
   light: {
@@ -25,5 +25,21 @@ export const THEMES = {
 const themeContext = createContext({
   theme: THEMES.dark,
 });
+
+export const ThemeProvider = ({ children }) => {
+  const [Checked, setChecked] = useState(false);
+
+  return (
+    <themeContext.Provider
+      value={{
+        theme: Checked ? THEMES.dark : THEMES.light,
+        Checked: Checked,
+        setChecked: setChecked,
+      }}
+    >
+      {children}
+    </themeContext.Provider>
+  );
+};
 
 export default themeContext;
